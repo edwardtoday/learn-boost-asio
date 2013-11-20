@@ -6,13 +6,13 @@
 
 int main()
 {
-    boost::asio::io_service io;
+  boost::asio::io_service io;
 
-    boost::asio::deadline_timer t(io, boost::posix_time::seconds(5));
-    t.wait();
+  boost::asio::deadline_timer t(io, boost::posix_time::seconds(5));
+  t.wait();
 
-    std::cout << "Hello World!\n";
+  std::cout << "Hello World!\n";
 
-    return 0;
+  return 0;
 }
 
