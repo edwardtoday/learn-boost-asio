@@ -1,4 +1,4 @@
-TARGET = server
+TARGET = allocation
 SOURCES += server.cpp
 
 #QMAKE_CXXFLAGS += -std=c++0x # for GCC < 4.7
