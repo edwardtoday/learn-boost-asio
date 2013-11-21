@@ -35,8 +35,9 @@ public:
   {
     message_ = make_daytime_string();
 
-    boost::asio::async_write(socket_, boost::asio::buffer(message_),
-                             boost::bind(&tcp_connection::handle_write, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
+    boost::asio::async_write(
+          socket_, boost::asio::buffer(message_),
+          boost::bind(&tcp_connection::handle_write, shared_from_this()));
   }
 
 private:
@@ -45,7 +46,7 @@ private:
   {
   }
 
-  void handle_write(const boost::system::error_code& /*error*/, size_t /*bytes_transferred*/)
+  void handle_write()
   {
   }
 
@@ -65,13 +66,17 @@ public:
 private:
   void start_accept()
   {
-    tcp_connection::pointer new_connection = tcp_connection::create(acceptor_.get_io_service());
+    tcp_connection::pointer new_connection =
+        tcp_connection::create(acceptor_.get_io_service());
 
-    acceptor_.async_accept(new_connection->socket(),
-                           boost::bind(&tcp_server::handle_accept, this, new_connection, boost::asio::placeholders::error));
+    acceptor_.async_accept(
+          new_connection->socket(),
+          boost::bind(&tcp_server::handle_accept, this,
+                      new_connection, boost::asio::placeholders::error));
   }
 
-  void handle_accept(tcp_connection::pointer new_connection, const boost::system::error_code& error)
+  void handle_accept(tcp_connection::pointer new_connection,
+                     const boost::system::error_code& error)
   {
     if (!error)
       {
@@ -99,3 +104,4 @@ int main()
 
   return 0;
 }
+
