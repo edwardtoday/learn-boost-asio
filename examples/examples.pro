@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     allocation \
-    buffers
+    buffers \
+    chat
